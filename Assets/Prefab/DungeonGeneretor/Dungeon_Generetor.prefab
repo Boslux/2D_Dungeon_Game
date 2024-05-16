@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1181783339445870231
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2810154783374100933}
+  - component: {fileID: 6840700409472950379}
+  m_Layer: 0
+  m_Name: Dungeon_Generetor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2810154783374100933
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181783339445870231}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.36, y: -0.79, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6840700409472950379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181783339445870231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f66f63235532fd04086aedcbc53ce7c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  topLeftCornerPrefab: {fileID: 4885869736860771722, guid: 59344fcf60fff2e408466cf1e39fbd1b, type: 3}
+  topRightCornerPrefab: {fileID: 1133524451594992405, guid: 9ac6803f4b9469346a042d6922deb498, type: 3}
+  bottomLeftCornerPrefab: {fileID: 2805991407118067301, guid: b016b9e56f9d8e94d8ea032b6ce9a8f0, type: 3}
+  bottomRightCornerPrefab: {fileID: 5552585052154089528, guid: 5052384cfb0ead94e9392ad4ae5aa918, type: 3}
+  topWallPrefab: {fileID: 8311795596516221113, guid: 9a19d4858cc95474b8cef10912d6a0f7, type: 3}
+  bottomWallPrefab: {fileID: 3250267820535836177, guid: 2daaec7d53856464996a44b52fdf21b4, type: 3}
+  leftWallPrefab: {fileID: 3894158828927239041, guid: f5d926e57bb2cc245ac363c7cda2ed37, type: 3}
+  rightWallPrefab: {fileID: 6853772414013234388, guid: b9bd32fdf4f9cae4cbdb7be7c79f8583, type: 3}
+  floorPrefab: {fileID: 5424508952197702592, guid: 7185f1ee6c42dc749a6ed3dfc89449f5, type: 3}
+  doorPrefab: {fileID: 6935514117441917772, guid: 4c6e178dad69fba41934f4bfa5014bb8, type: 3}
+  spawnerPrefab: {fileID: 9184443978014402593, guid: 9009bee584b3d9645beef4e49278a0a6, type: 3}
+  minRoomWidth: 8
+  maxRoomWidth: 25
+  minRoomHeight: 8
+  maxRoomHeight: 25
