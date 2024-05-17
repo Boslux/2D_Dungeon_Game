@@ -85,6 +85,7 @@ public class DungeonGenerator : MonoBehaviour
         Vector2 doorPosition = position + new Vector2(Random.Range(1, roomWidth - 2), Random.Range(1, roomHeight - 2));
         StartCoroutine(CreateDoor(doorPosition, Vector2.zero));
 
+        // Spawner yetleştir (odanın ortasına rastgele bir konumda)
         Vector2 spawnerPosition = position + new Vector2(Random.Range(1, roomWidth - 2), Random.Range(1, roomHeight - 2));
         CreateSpawner(spawnerPosition, Vector2.zero);
 

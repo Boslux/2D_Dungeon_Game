@@ -4,7 +4,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [Header("Spawner Settings")]
-    public GameObject enemyPrefab; // Spawn edilecek düşman
+    public GameObject[] enemyPrefab; // Spawn edilecek düşman
     public float spawnRate = 2f; // Spawn etme hızı
     public float spawnRadius = 5f; // Spawn etme yarıçapı
     private GameObject player;
@@ -32,7 +32,7 @@ public class EnemySpawner : MonoBehaviour
         Vector2 spawnPosition = (Vector2)player.transform.position + Random.insideUnitCircle * spawnRadius;
 
         // Düşmanı oluştur
-        Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+        Instantiate(enemyPrefab[Random.Range(0,enemyPrefab.Length)], spawnPosition, Quaternion.identity);
     }
 
     private void OnDrawGizmosSelected()

@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -7,16 +6,19 @@ public class PlayerAttack : MonoBehaviour
     [Header("Component")]
     Animator _anim;
     PlayerController _pl;
+    PlayerStats stats;
 
     [Header("Attack Settings")]
-    bool _canAttack = true;
-    public float _coolDownTime = 1.2f;
-    public float attackRange = 1.5f; // Saldırı mesafesi
-    public int attackDamage = 10; // Saldırı hasarı
+    private bool _canAttack = true;
+    private float _coolDownTime = 0.8f;
     public LayerMask enemyLayer; // Düşman layer'ı
+
+    //public float attackRange = 1.5f; // Saldırı mesafesi
+    //public int attackDamage = 10; // Saldırı hasarı
 
     void Awake() 
     {
+        stats=Resources.Load<PlayerStats>("PlayerStats");
         _anim = GetComponent<Animator>();
         _pl = GetComponent<PlayerController>();
         if (_pl == null)
@@ -27,76 +29,70 @@ public class PlayerAttack : MonoBehaviour
 
     private void Update() 
     {
-        Attacks();
+        HandleAttackInput();
     }
 
-    void Attacks()
+    void HandleAttackInput()
     {
         if (_canAttack)
         {
             if (Input.GetKeyDown(KeyCode.J))
             {
-                AnimationTriger(0);
-                StartCoroutine(AttackCooldown(_coolDownTime));
+                StartCoroutine(PerformBasicAttack());
             }
             if (Input.GetKeyDown(KeyCode.K))
             {
-                AnimationTriger(1);
+                PerformSpecialAttack("Attack2");
             }
             if (Input.GetKeyDown(KeyCode.L))
             {
-                AnimationTriger(2);
+                PerformSpecialAttack("Attack3");
             }
         }
     }
-
-    void AnimationTriger(int index)
-    {
-        switch (index)
-        {
-            case 0:
-                BasicAttack();
-                break;
-            case 1:
-                _anim.SetTrigger("Attack2");
-                break;
-            case 2:
-                _anim.SetTrigger("Attack3");
-                break;
-
-            default: break;
-        }
-    }
-
-    void BasicAttack()
+    IEnumerator PerformBasicAttack()
     {
         _canAttack = false;
-        StartCoroutine(AttackCooldown(_coolDownTime));
         _anim.SetTrigger("Attack");
         _anim.SetFloat("attackHorizontal", _pl.LastMoveDirection.x);
         _anim.SetFloat("attackVertical", _pl.LastMoveDirection.y);
 
-        Vector2 attackDirection = _pl.LastMoveDirection.normalized;
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, attackDirection, attackRange, enemyLayer);
-        
-        // Raycast görselleştirme
-        Debug.DrawRay(transform.position, attackDirection * attackRange, Color.red, 0.5f);
-        
-        if (hit.collider != null && hit.collider.CompareTag("Enemy"))
+        yield return new WaitForSeconds(0.1f); // Saldırı animasyonunun başlama süresi
+
+        Vector2 attackPosition = (Vector2)transform.position + _pl.LastMoveDirection.normalized * (stats.attackRange / 2);
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPosition, stats.attackRange / 2, enemyLayer);
+
+        // Saldırı alanı görselleştirme
+        Debug.DrawLine(transform.position, attackPosition, Color.red, 0.5f);
+
+        foreach (Collider2D enemy in hitEnemies)
         {
-            EnemyController enemy = hit.collider.GetComponent<EnemyController>();
-            if (enemy != null)
+            if (enemy.CompareTag("Enemy"))
             {
-                Vector2 knockbackDirection = hit.collider.transform.position - transform.position;
-                knockbackDirection.Normalize();
-                enemy.TakeDamage(attackDamage, knockbackDirection);
+                EnemyController enemyController = enemy.GetComponent<EnemyController>();
+                if (enemyController != null)
+                {
+                    Vector2 knockbackDirection = (enemy.transform.position - transform.position).normalized;
+                    enemyController.TakeDamage(stats.attackDamage, knockbackDirection);
+                }
             }
         }
+
+        yield return new WaitForSeconds(_coolDownTime - 0.1f);
+        _canAttack = true;
     }
 
-    IEnumerator AttackCooldown(float attackType)
+    void PerformSpecialAttack(string animationTrigger)
     {
-        yield return new WaitForSeconds(attackType);
-        _canAttack = true;
+        _anim.SetTrigger(animationTrigger);
+    }
+    private void OnDrawGizmosSelected()
+    {
+        if (_pl != null)
+        {
+            Vector2 attackPosition = (Vector2)transform.position + _pl.LastMoveDirection.normalized * (stats.attackRange / 2);
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(attackPosition, stats.attackRange / 2);
+        }
     }
 }

@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,6 +11,17 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D _rb;
     Animator _anim;
     Transform _light;
+    PlayerStats _stats;
+    Light2D lampLight;
+
+
+    [Header("Player Stats")]
+    public int health = 100;
+    private int _staminaMultiplier=7;
+
+    [Header("Stamina Increase")]
+    public float staminaIncreaseInterval = 1.0f; // Stamina artırma aralığı (saniye)
+    private float staminaTimer = 0.0f;
 
     [Header("Movement Settings")]
     [Range(0,20)]public float speed;
@@ -27,8 +40,13 @@ public class PlayerController : MonoBehaviour
     {
         get { return _lastMoveDirection; }
     }
+
+
+        
     void Awake()
     {
+        UniversalLight();
+        _stats=Resources.Load<PlayerStats>("PlayerStats");
         _rb=GetComponent<Rigidbody2D>();
         _anim=GetComponent<Animator>();
         _light=GameObject.Find("Lighting").GetComponent<Transform>();
@@ -38,6 +56,8 @@ public class PlayerController : MonoBehaviour
         HandleAnimations();
         HandleInput();
         LightControl();
+        StaminaControl();
+        UniversalLight();
     }
 
     void FixedUpdate()
@@ -52,6 +72,23 @@ public class PlayerController : MonoBehaviour
            Movement(); 
         }
     }
+    #region Damage Control
+    public void TakeDamage(int damage)
+    {
+        _stats.hp -= damage;
+        if (_stats.hp <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        // Oyuncu ölüm işlemleri
+        Debug.Log("Player Died!");
+    }
+    #endregion
+
     #region Movement
     float _fixedSpeed=100;
 
@@ -70,6 +107,27 @@ public class PlayerController : MonoBehaviour
         }      
     }
     #endregion
+    
+    #region Stamina
+    void StaminaControl()
+    {  
+        //  if(_stats.stamina!=100)
+        // {
+        //     _stats.stamina+=Time.deltaTime*_staminaMultiplier;
+        // }
+
+        staminaTimer += Time.deltaTime;
+        if (staminaTimer >= staminaIncreaseInterval)
+        {
+            if (_stats.stamina < 100)
+            {
+                _stats.stamina += 1*_staminaMultiplier; // Stamina'yı 1 artır
+            }
+            staminaTimer = 0.0f; // Timer'ı sıfırla
+        }
+    }
+    #endregion
+
     #region  Input
     void HandleInput() //kontrol Tuşları
     {
@@ -79,6 +137,7 @@ public class PlayerController : MonoBehaviour
             }
     }
     #endregion
+    
     #region Light
     void LightControl()
     {
@@ -99,9 +158,25 @@ public class PlayerController : MonoBehaviour
             _light.transform.localRotation=Quaternion.Euler(0,0,0);
         }
     }
-    #endregion
-    #region Dash
 
+    void UniversalLight()
+    {
+        // Mevcut Light 2D bileşenini bul ve ayarla
+        lampLight = GetComponentInChildren<Light2D>();
+        if (lampLight != null)
+        {
+            lampLight.shadowsEnabled = true;
+        }
+        else
+        {
+            Debug.LogError("Light2D component not found in children!");
+        }
+
+    }
+    #endregion
+    
+    #region Dash
+    
     private bool CanDash()
     {
         return Time.time>=_lastDashTime+dashCooldown;
@@ -109,14 +184,18 @@ public class PlayerController : MonoBehaviour
 
     void StartDash()
     {
-        _isDashing=true;
-        _dashTimeLeft=dashDuration;
-        _lastDashTime=Time.time;
+        if(_stats.stamina>=40)
+        {
+            _isDashing=true;
+            _dashTimeLeft=dashDuration;
+            _lastDashTime=Time.time;
 
-        //Dash Animasyonu tetiklenir
-        _anim.SetTrigger("Dash");
-        _anim.SetFloat("dashHorizontal",_lastMoveDirection.x);
-        _anim.SetFloat("dashVertical", _lastMoveDirection.y);
+            //Dash Animasyonu tetiklenir
+            _anim.SetTrigger("Dash");
+            _anim.SetFloat("dashHorizontal",_lastMoveDirection.x);
+            _anim.SetFloat("dashVertical", _lastMoveDirection.y);
+            _stats.stamina-=30;
+        }
     }
     private void PerformDash()
     {
@@ -127,6 +206,7 @@ public class PlayerController : MonoBehaviour
     }
 
     #endregion
+    
     #region Animations
     void HandleAnimations()
     {
