@@ -16,6 +16,10 @@ public class PlayerUIController : MonoBehaviour
     [Header("Stamina")]
     public Image[] staminaImages;
     public Sprite[] staminaSprites; // 3 adet görsel var
+    [Header("Stamina")]
+    public Image[] bulletImages;
+    public Sprite[] bulletSprites; // 3 adet görsel var
+
     [Header("Room")]
     public Text roomNumber;
 
@@ -28,6 +32,7 @@ public class PlayerUIController : MonoBehaviour
     {
         UpdateUI(healthImages, healthSprites, stats.hp);
         UpdateUI(staminaImages, staminaSprites, stats.stamina);
+        UpdateUI(bulletImages,bulletSprites,stats.bulletCount);
         roomNumber.text = "Room: "+stats.roomNumber.ToString();
     }
 

@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.Rendering.Universal;
+using System.Reflection.Emit;
+using UnityEngine.UIElements;
 
 public class EnemyController : MonoBehaviour
 {
@@ -18,7 +20,13 @@ public class EnemyController : MonoBehaviour
 
     [Header("Miscellaneous")]
     public bool haveAnimation;
+    public float destroyedTime;
+    public GameObject lootPrefab;
+    float _temporaryRoomCount;
 
+    PlayerStats _room;
+    BoxCollider2D _bCollider;
+    CircleCollider2D _cCollider;
     private Rigidbody2D _rb;
     private Transform _player;
     private Animator _anim;
@@ -29,14 +37,14 @@ public class EnemyController : MonoBehaviour
 
     void Awake()
     {
-        _rb = GetComponent<Rigidbody2D>();
-        _anim = GetComponent<Animator>();
+        Components();
     }
 
     void Start()
     {
         _player = GameObject.FindGameObjectWithTag("Player").transform;
         Shadow();
+        _temporaryRoomCount=_room.roomNumber;
     }
 
     void Update()
@@ -57,7 +65,20 @@ public class EnemyController : MonoBehaviour
                 }
             }
         }
+        if(_room.roomNumber>_temporaryRoomCount)
+        {
+            _temporaryRoomCount=_room.roomNumber;
+            attackDamage+=5;
+        }
         
+    }
+    void Components()
+    {
+        _rb = GetComponent<Rigidbody2D>();
+        _anim = GetComponent<Animator>();
+        _bCollider=GetComponent<BoxCollider2D>();
+        _room=Resources.Load<PlayerStats>("PlayerStats");
+
     }
     void Shadow()
     {
@@ -110,16 +131,20 @@ public class EnemyController : MonoBehaviour
 
     void Die()
     {
-        _anim.SetBool("isLive", false);
         _isAlive = false;
+        _anim.SetBool("isLive", _isAlive);
         _rb.velocity = Vector2.zero;
-        Destroy(gameObject, 1f);
+        
+        _bCollider.enabled = false;  
+        Instantiate(lootPrefab,transform.position, Quaternion.identity);
+        Destroy(gameObject, destroyedTime);
     }
     #endregion
 
     #region Attack
     IEnumerator Attack()
     {
+        
         if (_isAlive)
         {
             _isAttacking = true;
@@ -137,6 +162,7 @@ public class EnemyController : MonoBehaviour
                 PlayerController playerController = _player.GetComponent<PlayerController>();
                 if (playerController != null)
                 {
+                    
                     playerController.TakeDamage(attackDamage);
                 }
             }

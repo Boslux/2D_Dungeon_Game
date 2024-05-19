@@ -105,7 +105,7 @@ public class DungeonGenerator : MonoBehaviour
 
     IEnumerator CreateDoor(Vector2 position, Vector2 direction)
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(25);
         GameObject door = Instantiate(doorPrefab, position, Quaternion.identity, currentRoom.transform);
         DoorController doorScript = door.GetComponent<DoorController>();
         doorScript.Initialize(this, direction);

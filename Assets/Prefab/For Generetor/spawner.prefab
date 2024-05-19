@@ -48,5 +48,7 @@ MonoBehaviour:
   - {fileID: 4262564539792558132, guid: 81eef879ae12edc419a61cb4b20dda51, type: 3}
   - {fileID: 7872114160804778015, guid: 0239466ed65607349bb5701a00202ea3, type: 3}
   - {fileID: 3873022971802231988, guid: a62c633476a46c1488edf5a881851ae0, type: 3}
-  spawnRate: 4
-  spawnRadius: 6
+  spawnRate: 1
+  spawnRadius: 10
+  minSpawnDistance: 6
+  room: {fileID: 11400000, guid: 3ad9061a5a239d54d8050a70f2b041c5, type: 2}

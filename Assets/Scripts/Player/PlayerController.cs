@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -18,6 +20,8 @@ public class PlayerController : MonoBehaviour
     [Header("Player Stats")]
     public int health = 100;
     private int _staminaMultiplier=7;
+    private LevelSystem _levelSystem;
+    public Text lootText;
 
     [Header("Stamina Increase")]
     public float staminaIncreaseInterval = 1.0f; // Stamina artırma aralığı (saniye)
@@ -31,6 +35,7 @@ public class PlayerController : MonoBehaviour
     public float dashDuration=0.2f;
     public float dashCooldown=1f; // bir stamina ayarlayıp buna göre kontrol ettir şimdilik sadece test    
     
+    [Header("Dash Settings")]
     private bool _isDashing=false;
     private float _dashTimeLeft;
     private float _lastDashTime=-Mathf.Infinity;
@@ -40,16 +45,14 @@ public class PlayerController : MonoBehaviour
     {
         get { return _lastMoveDirection; }
     }
+    BasicLootSystem _loot;
 
 
         
     void Awake()
     {
         UniversalLight();
-        _stats=Resources.Load<PlayerStats>("PlayerStats");
-        _rb=GetComponent<Rigidbody2D>();
-        _anim=GetComponent<Animator>();
-        _light=GameObject.Find("Lighting").GetComponent<Transform>();
+        Component();
     }
     void Update()
     {
@@ -58,6 +61,7 @@ public class PlayerController : MonoBehaviour
         LightControl();
         StaminaControl();
         UniversalLight();
+        _stats.ExperienceControl();
     }
 
     void FixedUpdate()
@@ -72,6 +76,38 @@ public class PlayerController : MonoBehaviour
            Movement(); 
         }
     }
+    void Component()
+    {
+        _levelSystem=GameObject.Find("GameController").GetComponent<LevelSystem>();
+        _stats=Resources.Load<PlayerStats>("PlayerStats");
+        _rb=GetComponent<Rigidbody2D>();
+        _anim=GetComponent<Animator>();
+        _light=GameObject.Find("Lighting").GetComponent<Transform>();
+    }
+
+    public void LootControl(int lootType)
+    {
+        switch (lootType)
+        {
+            case 1:
+                _stats.hp+=30;
+                lootText.text="30 HP gained";
+                StartCoroutine(TextGetEmpty());
+            break;
+            case 2:
+                _stats.bulletCount+=30;
+                lootText.text="30 Bullet gained";
+                StartCoroutine(TextGetEmpty());
+            break;
+            default: break;
+        }
+    }
+    IEnumerator TextGetEmpty()
+    {
+        yield return new WaitForSeconds(1);
+        lootText.text="";
+    }
+
     #region Damage Control
     public void TakeDamage(int damage)
     {
@@ -84,8 +120,14 @@ public class PlayerController : MonoBehaviour
 
     void Die()
     {
-        // Oyuncu ölüm işlemleri
+        _anim.SetBool("isLive",false);
+        StartCoroutine( LoadScen());
         Debug.Log("Player Died!");
+    }
+    IEnumerator LoadScen()
+    {
+        yield return new WaitForSeconds(0.8f);
+        SceneManager.LoadScene(0);
     }
     #endregion
 

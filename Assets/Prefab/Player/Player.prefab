@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 1572285654192476826}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -120,7 +120,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1528062817893415719}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -186,6 +186,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0047cc795fddee4e954feb4d3524083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 100
+  staminaIncreaseInterval: 1
   speed: 1.5
   speedMultiplier: 1
   dashSpeed: 5
@@ -203,7 +205,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2e7c4ed94892fd498b0faa55d267a7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _coolDownTime: 1
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  bombPrefab: {fileID: 3600697557905275099, guid: 85bc31778d61ec74da8501a22005309b, type: 3}
+  markerPrefab: {fileID: 9191947782228572210, guid: 9f5b70da4042d59458efa793f86a70dc, type: 3}
+  skills: []
 --- !u!1 &7258737882123542857
 GameObject:
   m_ObjectHideFlags: 0

@@ -118,7 +118,7 @@ TextureImporter:
         width: 12
         height: 12
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -139,7 +139,7 @@ TextureImporter:
         width: 12
         height: 12
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -160,7 +160,7 @@ TextureImporter:
         width: 12
         height: 12
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -181,7 +181,7 @@ TextureImporter:
         width: 14
         height: 12
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -202,7 +202,7 @@ TextureImporter:
         width: 14
         height: 12
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -223,7 +223,7 @@ TextureImporter:
         width: 14
         height: 12
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -244,7 +244,7 @@ TextureImporter:
         width: 14
         height: 13
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -265,7 +265,7 @@ TextureImporter:
         width: 14
         height: 12
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -273,6 +273,90 @@ TextureImporter:
       bones: []
       spriteID: d6792e43a85a00e45acccd51b63051ab
       internalID: 964542193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 00_9
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 64
+        width: 4
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ede8653878fdac849894969a84cafc13
+      internalID: -1807970116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 00_10
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 64
+        width: 4
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2283e50b9437c84fbfb6c32e8b61ca6
+      internalID: -1164619951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 00_8
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 64
+        width: 4
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ce2de623877dbd4ab886a79e98a9c35
+      internalID: 1647756738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 00_11
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 64
+        width: 4
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ffe067c233207464eb3fc89368490667
+      internalID: 1388771936
       vertices: []
       indices: 
       edges: []
@@ -290,12 +374,16 @@ TextureImporter:
     nameFileIdTable:
       00_0: -1400010583
       00_1: -1238533984
+      00_10: -1164619951
+      00_11: 1388771936
       00_2: 1619892823
       00_3: 1930836360
       00_4: 122079889
       00_5: -430200992
       00_6: -173798282
       00_7: 964542193
+      00_8: 1647756738
+      00_9: -1807970116
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

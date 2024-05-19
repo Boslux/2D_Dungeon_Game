@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - fire skill
+  - loot
   layers:
   - Default
   - TransparentFX
@@ -56,4 +58,7 @@ TagManager:
     locked: 0
   - name: Characters
     uniqueID: 2153073665
+    locked: 0
+  - name: Aim
+    uniqueID: 2157311365
     locked: 0

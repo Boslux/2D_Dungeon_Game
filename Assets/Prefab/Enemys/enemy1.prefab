@@ -139,7 +139,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.047268987, y: 0}
@@ -168,14 +168,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 20
-  speed: 0.5
+  speed: 1
   attackRange: 1
   knockbackForce: 5
   attackDamage: 5
   attackCooldown: 1.5
   attackObjectPrefab: {fileID: 3655474873469026874, guid: 112a879bcafd4564a832ca078aa1840c, type: 3}
-  attackObjectLifetime: 0.4
+  attackObjectLifetime: 0.3
   haveAnimation: 0
+  destroyedTime: 0.6
+  lootPrefab: {fileID: 2461611787691151603, guid: 02a9c933f2647164e96e735c7224757a, type: 3}
 --- !u!50 &5616954563417029694
 Rigidbody2D:
   serializedVersion: 4
