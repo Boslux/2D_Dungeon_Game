@@ -53,7 +53,14 @@ public class SkillController : MonoBehaviour
 
     public void AttackSpeedIncrease(float attackSpeedMultiplier)
     {
-        _playerStats.attackCooldown -= attackSpeedMultiplier;
-        Debug.Log("Increased attack speed. Current Cooldown: " + _playerStats.attackCooldown);
+        if(_playerStats.attackCooldown!<0.5f)
+        {
+            _playerStats.attackCooldown -= attackSpeedMultiplier;
+            Debug.Log("Increased attack speed. Current Cooldown: " + _playerStats.attackCooldown);
+        }
+        else if(_playerStats.attackCooldown<=0.5f)
+        {
+            _playerStats.attackCooldown+=0.2f;
+        }
     }
 }

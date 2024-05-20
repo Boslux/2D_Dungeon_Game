@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4464910522262295415}
   - component: {fileID: 1042585966867639328}
   - component: {fileID: 1572285654192476826}
+  - component: {fileID: 5355418512904856020}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -187,6 +188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  lootText: {fileID: 0}
   staminaIncreaseInterval: 1
   speed: 1.5
   speedMultiplier: 1
@@ -211,6 +213,23 @@ MonoBehaviour:
   bombPrefab: {fileID: 3600697557905275099, guid: 85bc31778d61ec74da8501a22005309b, type: 3}
   markerPrefab: {fileID: 9191947782228572210, guid: 9f5b70da4042d59458efa793f86a70dc, type: 3}
   skills: []
+--- !u!114 &5355418512904856020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1528062817893415719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8ef205b8f5088742946eabe3fc84640, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelUpPanel: {fileID: 0}
+  optionButtons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &7258737882123542857
 GameObject:
   m_ObjectHideFlags: 0

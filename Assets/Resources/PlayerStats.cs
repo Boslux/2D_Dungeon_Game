@@ -31,7 +31,7 @@ public class PlayerStats : ScriptableObject
     [Header("Basic Attack")]
     public float attackRange;
     public int attackDamage;
-    public float attackCooldown;
+    public float attackCooldown=1.7f;
 
     [Header("Bomb Attack")]
     public float bombcoolDownTime=5;

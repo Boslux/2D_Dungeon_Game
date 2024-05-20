@@ -46,17 +46,21 @@ public class LevelSystem : MonoBehaviour
                     _upgradeSystem.canRecover = true; // Can geri kazanmayı aktif et
                     _upgradeSystem.hpRecoveryUnlocked = true; // Can geri kazanmanın kilidini aç
                     Debug.Log("Health recovery activated");
+                    if(_upgradeSystem.recoveryRate !> 0.5f)
+                    {
+                        _upgradeSystem.recoveryRate-=0.05f;
+                    }
                 }
                 break;
 
             case 1:
                 int _damage = 5;
-                _upgradeSystem.DamageIncrease(_damage);
+                _upgradeSystem.DamageIncrease(_damage);     //Saldırı arttır
                 break;
 
             case 2:
                 float _speed = 0.1f;
-                _upgradeSystem.AttackSpeedIncrease(_speed);
+                _upgradeSystem.AttackSpeedIncrease(_speed); //Saldırı hızı arttır
                 break;
 
             default:

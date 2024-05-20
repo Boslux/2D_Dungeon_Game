@@ -13,7 +13,6 @@ public class DoorController : MonoBehaviour
     {
         _stats=Resources.Load<PlayerStats>("PlayerStats");
         _text = GameObject.Find("DoorMessage").GetComponent<Text>();
-        Debug.Log("DoorController Awake - GameObject: " + gameObject.name + " isActive: " + gameObject.activeSelf);
     }
 
     private void Start()

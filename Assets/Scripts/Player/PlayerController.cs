@@ -28,8 +28,8 @@ public class PlayerController : MonoBehaviour
     private float staminaTimer = 0.0f;
 
     [Header("Movement Settings")]
-    [Range(0,20)]public float speed;
-    private bool _isMoving;
+    [Range(0,20)]public float speed; 
+    float _fixedSpeed=100; // hız arttırmak için ve temiz kod için
     public float speedMultiplier=100f;
     public float dashSpeed=20f;
     public float dashDuration=0.2f;
@@ -132,15 +132,13 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region Movement
-    float _fixedSpeed=100;
-
 
     void Movement()
     {
-        float _validSpeed=Time.fixedDeltaTime*_fixedSpeed*speedMultiplier ;
-        float hMove=Input.GetAxis("Horizontal")*_validSpeed;
-        float vMove=Input.GetAxis("Vertical")*_validSpeed;
-        Vector2 move=new Vector2(hMove,vMove).normalized;
+        float hMove=Input.GetAxis("Horizontal")*Time.fixedDeltaTime;
+        float vMove=Input.GetAxis("Vertical")*Time.fixedDeltaTime;
+        
+        Vector2 move=new Vector2(hMove,vMove).normalized; // normalized etme sebebimiz x,y!=0 durumlarında hızını sabit tutmak için.
         _rb.velocity=move*speed;
 
         if (move!=Vector2.zero)
@@ -153,13 +151,13 @@ public class PlayerController : MonoBehaviour
     #region Stamina
     void StaminaControl()
     {  
-        //  if(_stats.stamina!=100)
-        // {
-        //     _stats.stamina+=Time.deltaTime*_staminaMultiplier;
-        // }
-
+        //stamina zamanla
         staminaTimer += Time.deltaTime;
-        if (staminaTimer >= staminaIncreaseInterval)
+        /*
+        staminayı int ayarladığım için kodu böyle takip ediyorum. 
+        Stamina neden int diye sorarsanız kodu yazarken beşiktaş maçı başlıyordu hızlı kodlarken daldım sonra gerek duymadım 
+        */
+        if (staminaTimer >= staminaIncreaseInterval) 
         {
             if (_stats.stamina < 100)
             {
@@ -183,6 +181,7 @@ public class PlayerController : MonoBehaviour
     #region Light
     void LightControl()
     {
+        //daha iyisi yazılabilecek olan ışık takipini çok uğraşadım bu şekilde basitçe yaptım, üşendiğimiz anlar bizi kötü koda itiyor.
          if(_rb.velocity.x>0)
         {
             _light.transform.localRotation=Quaternion.Euler(0,0,90);
@@ -213,7 +212,6 @@ public class PlayerController : MonoBehaviour
         {
             Debug.LogError("Light2D component not found in children!");
         }
-
     }
     #endregion
     

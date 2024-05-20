@@ -81,6 +81,7 @@ public class PlayerAttack : MonoBehaviour
         }
         
     }
+    
     #region Basic Attack
     IEnumerator PerformBasicAttack()
     {
@@ -124,11 +125,12 @@ public class PlayerAttack : MonoBehaviour
             _anim.SetTrigger("Attack2");
             _anim.SetFloat("attackHorizontal", _pl.LastMoveDirection.x);
             _anim.SetFloat("attackVertical", _pl.LastMoveDirection.y);
-            BulletCheck();
+            BulletCheck(); //şu anda tek bir saldırı var o yüzden pek işlevli değil ileride daha mantıklı olacak.
         }
     }
     void BulletCheck()
     {
+        //şu anda sadece skills[0] aktif
         switch (_skillIndex)
         {
             case 0:
@@ -207,26 +209,5 @@ public class PlayerAttack : MonoBehaviour
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(attackPosition, stats.attackRange / 2);
         }
-    }
-
-    private void OnCollisionEnter2D(Collision2D cls) 
-    {
-        if(cls.gameObject.tag=="fire skill")
-            {           
-                _skillIndex=0;
-                stats.bulletCount=10;
-            }
-        
-        if(cls.gameObject.tag=="water skill")
-            {           
-                _skillIndex=1;
-                stats.bulletCount=10;
-            }
-
-        if(cls.gameObject.tag=="grass skill")
-            {           
-                _skillIndex=2;
-                stats.bulletCount=10;
-            }
     }
 }

@@ -26,17 +26,17 @@ public class DungeonGenerator : MonoBehaviour
     public GameObject spawnerPrefab;
 
     [Header("Room Settings")]
-    public int minRoomWidth = 8; // Odanın minimum genişliği
-    public int maxRoomWidth = 12; // Odanın maksimum genişliği
-    public int minRoomHeight = 8; // Odanın minimum yüksekliği
-    public int maxRoomHeight = 12; // Odanın maksimum yüksekliği
+    public int minRoomWidth = 8; 
+    public int maxRoomWidth = 12; 
+    public int minRoomHeight = 8; 
+    public int maxRoomHeight = 12; 
 
     private GameObject currentRoom;
     private GameObject player;
 
     void Start()
     {
-        player = GameObject.FindWithTag("Player"); // Oyuncu objesini bul
+        player = GameObject.FindWithTag("Player"); 
         CreateRoom(Vector2.zero);
     }
 

@@ -8,10 +8,9 @@ public class BombAttack : MonoBehaviour
     public GameObject effect;
 
     [Header("Explode")]
-    public float explosionRadius = 5f; // Patlama yarıçapı
-    public int damage = 50; // Verilecek hasar
-    public LayerMask damageLayer; // Hasar verilecek katman (örneğin, düşmanlar)
-
+    public float explosionRadius = 5f; 
+    public int damage = 50; 
+    public LayerMask damageLayer; 
     private void Start() 
     {
         _anim = GetComponent<Animator>();
@@ -36,7 +35,7 @@ public class BombAttack : MonoBehaviour
         // Her bir collidera hasar ver
         foreach (Collider2D hit in hitColliders)
         {
-            // Düşmanların EnemyController bileşenine sahip olduğunu varsayalım
+            
             EnemyController enemy = hit.GetComponent<EnemyController>();
             if (enemy != null)
             {
@@ -44,13 +43,12 @@ public class BombAttack : MonoBehaviour
             }
         }
 
-        // Patlama efektleri, sesler ve ardından bomba objesini yok etme
-        Destroy(gameObject); // Patlama gerçekleştiğinde bombayı yok et
+        // Patlama efektleri vs ardından bomba objesini yok etme
+        Destroy(gameObject); 
     }
 
     void OnDrawGizmosSelected()
     {
-        // Patlama alanını görsel olarak göstermek için
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, explosionRadius);
     }
